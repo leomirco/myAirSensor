@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 
 const sensorDataSchema = new mongoose.Schema({
-    serialNumber: {
-        type: String,
-        required: true,
-        unique: true
-    },
     model: {
+        type: String,
+        required: true
+    },
+    serialNumber: {
         type: String,
         required: true
     },

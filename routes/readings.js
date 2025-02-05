@@ -10,7 +10,6 @@ handlebars.registerHelper("prettifyDate", function(timestamp) {
   return new Date(timestamp).toString('yyyy-MM-dd')
 });
 
-//const mongoString = "mongodb+srv://airsensorapi:020375@airsensor.xokds.mongodb.net/AirSensordb";
 require('dotenv').config();
 const MONGO_STRING = process.env.MONGO_STRING;
 console.log("MONGO_STRING :", MONGO_STRING)
@@ -70,8 +69,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/insertValue", async (req, res) => {
-  console.log('/insertValue - inserted a new reading');
-  console.log('New reading ', req);
+  console.log('/insertValue - DB schema', readingSchema);
+  console.log('/insertValue - New reading ', req.body);
   var serialNumber = req.body.serialNumber;
   var model = req.body.model;
   var city = req.body.city;
@@ -99,7 +98,7 @@ router.post("/insertValue", async (req, res) => {
   });
   newSensorData.save().
   then(insert => {  
-    console.log("measurement entered:", insert);
+    console.log("/insertValue - measurement entered:", insert);
     res.json(insert).status(200);
   })
   .catch(err => {

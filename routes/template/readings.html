@@ -50,14 +50,21 @@
 </head>
 <body>
 <div>
-<h3 style = "text-align: left;">
- {{number_reading}} reading found
-</h3>  
+  <h1 style = "text-align: center;margin-top: 50px;">
+   AirSensor Project
+   </h1> 
+   <div class="project-description">
+    The project aims to develop a network of plug-and-play IoT sensors for real-time air quality monitoring, detecting pollutants such as particulate matter (PM10, PM2.5) and harmful gases (NO2, CO, CO2, VOC) to provide accurate and timely data on ambient air quality.
+   </div>
+    <br><hr>
+    <div class="project-description"><br>
+ Measurements found:  {{number_reading}}
+    </div><br><br>
 </div>
-          <table id="mytable" style="width:100%" onload="highlight(0)">
+          <table id="mytable" onload="highlight(0)">
             <thead>
                 <tr>
-                    <th>Date</th>
+                    <th style="width: 500px;">Date</th>
                     <th>PM10</th>
                     <th>NO2</th>
                     <th>CO</th>
@@ -82,8 +89,8 @@
         </table>
    
     <br>
-    <button id='upd_btn' onclick="getSelectedRow()">Return</button>
-     <div class="info-wrapper" style="margin-left:35px;margin-bottom:10px;">
+  
+     <div class="info-wrapper" style="margin-left:35px;margin-bottom:10px;margin-top: 80px;">
           <label>Powered by</label>
           <img style="max-width: 15%;!important;" src="/img/logo_vallone.png">
       </div>
