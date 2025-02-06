@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/readings', readingsRouter);
 //app.use('/models', modelsRouter);
-app.use(express.static('client/asset'));
+app.use(express.static(process.cwd()+'/client/asset'));
 // http://localhost:3000/css/base.css
 
 // catch 404 and forward to error handler
