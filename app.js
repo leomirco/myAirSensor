@@ -42,8 +42,6 @@ app.use('/readings', readingsRouter);
 //app.use('/models', modelsRouter);
 app.use('/client/asset',express.static(process.cwd()+'/client/asset'));
 
-// http://localhost:3000/css/base.css
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
