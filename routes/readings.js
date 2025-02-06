@@ -174,7 +174,7 @@ router.get("/getallvalue", async (req, res) => {
     console.log('Reading schema: ', SensorData);
     console.log('/getLastValue - req.parameters ', req.query.serialnumber);
     var serialNumber = req.query.serialnumber;
-    await SensorData.find({serialNumber: serialNumber}).lean().limit(30)
+    await SensorData.find({serialNumber: serialNumber}).sort({ _id: -1 }).lean().limit(30)
     .then(readings => {
       console.log("Get all readings value", readings);
       // HANDLEBARS
@@ -212,7 +212,7 @@ router.get("/getlastvalue", async (req, res) => {
     //console.log('Reading schema: ', SensorData);
     console.log('/getLastValue - req.parameters ', req.query.serialnumber);
     var serialNumber = req.query.serialnumber;
-    await SensorData.findOne({serialNumber: serialNumber}).lean()
+    await SensorData.find({serialNumber: serialNumber}).sort({ _id: -1 }).lean().limit(1)
     .then(readings => {
       console.log("getLast value", readings);
       res.json(readings).status(200);
