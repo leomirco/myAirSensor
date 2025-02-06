@@ -12,7 +12,9 @@ handlebars.registerHelper("prettifyDate", function(timestamp) {
 
 require('dotenv').config();
 const MONGO_STRING = process.env.MONGO_STRING;
-console.log("MONGO_STRING :", MONGO_STRING)
+console.log("MONGO_STRING :", MONGO_STRING);
+const base = process.env.BASE;
+console.log("BASE :", base);
 // Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
 // Included because it removes preparatory warnings for Mongoose 7.
 // See: https://mongoosejs.com/docs/migrating_to_6.html#strictquery-is-removed-and-replaced-by-strict
@@ -68,7 +70,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post("/insertValue", async (req, res) => {
+router.post("/insertvalue", async (req, res) => {
   console.log('/insertValue - DB schema', readingSchema);
   console.log('/insertValue - New reading ', req.body);
   var serialNumber = req.body.serialNumber;
@@ -108,12 +110,71 @@ router.post("/insertValue", async (req, res) => {
 });
 
 
-
-
-router.get("/getAllValue", async (req, res) => {
+//return all sensors
+router.get("/getallsensors", async (req, res) => {
+  try {
+    //console.log('Reading schema: ', SensorData);
+    await SensorData.aggregate([
+      {
+        $group: {
+          _id: "$serialNumber",
+          documents: { $push: "$$ROOT" }
+        }   
+      }
+    ])
+    .then(uniqueSerialNumbers => {
+      console.log("getall uniqueSerialNumbers", uniqueSerialNumbers);
+      let devices = [];
+      uniqueSerialNumbers.forEach(uniqueSerialNumbers => {
+        console.log("Serial Number:", uniqueSerialNumbers._id);
+        console.log("City:", uniqueSerialNumbers.documents[0].city);
+        console.log("Address:", uniqueSerialNumbers.documents[0].address);
+        let device = {sensornumber:uniqueSerialNumbers._id, city: uniqueSerialNumbers.documents[0].city, address: uniqueSerialNumbers.documents[0].address};
+        devices.push(device);
+      //   uniqueSerialNumbers.documents.forEach(document => {
+      //     console.log("City:", document.city);
+      //     console.log("Address:", document.address);
+      // });
+      console.log('Devices :',devices);
+      console.log('Devices number :',devices.length);
+    });
+      // HANDLEBARS
+      var log = true;
+      var page = '/sensorlist.html';
+      var dir = '/template';
+      readHTMLFile(page, dir, (err, html) => {
+        if (err) {
+          console.log("/getallsensors - Read html file: ", err);
+        }
+        var template = handlebars.compile(html);
+        var replacements = {
+          devices: devices,
+          devicesnumber: devices.length,
+          base: base,
+        }
+        if (log) {
+          console.log("/getallsensors - Replacements: ", replacements);
+        }
+        var html = template(replacements);
+        res.send(html);
+      })
+    })
+    .catch(err => {
+      console.error(err);
+      res.json(err).status(500);
+    });
+  } catch (error) {
+    console.error('Error', error);
+    res.json(error).status(500);
+  }
+});
+// return all measures HTML
+router.get("/getallvalue", async (req, res) => {
   try {
     console.log('Reading schema: ', SensorData);
-    await SensorData.find().lean()
+    console.log('/getLastValue - req.parameters ', req.query.serialnumber);
+    var serialNumber = req.query.serialnumber;
+    await SensorData.find({serialNumber: serialNumber}).lean().limit(30)
     .then(readings => {
       console.log("Get all readings value", readings);
       // HANDLEBARS
@@ -135,6 +196,26 @@ router.get("/getAllValue", async (req, res) => {
         var html = template(replacements);
         res.send(html);
       })
+    })
+    .catch(err => {
+      console.error(err);
+      res.json(err).status(500);
+    });
+  } catch (error) {
+    console.error('Error', error);
+    res.json(error).status(500);
+  }
+});
+//return last measures JSON
+router.get("/getlastvalue", async (req, res) => {
+  try {
+    //console.log('Reading schema: ', SensorData);
+    console.log('/getLastValue - req.parameters ', req.query.serialnumber);
+    var serialNumber = req.query.serialnumber;
+    await SensorData.findOne({serialNumber: serialNumber}).lean()
+    .then(readings => {
+      console.log("getLast value", readings);
+      res.json(readings).status(200);
     })
     .catch(err => {
       console.error(err);

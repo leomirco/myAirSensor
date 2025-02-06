@@ -56,40 +56,33 @@
    <div class="project-description">
     The project aims to develop a network of plug-and-play IoT sensors for real-time air quality monitoring, detecting pollutants such as particulate matter (PM10, PM2.5) and harmful gases (NO2, CO, CO2, VOC) to provide accurate and timely data on ambient air quality.
    </div>
-    <br><hr>
+    <br>
+    <hr>
     <div class="project-description"><br>
- Measurements found:  {{number_reading}}
+ Sensors found:  {{devicesnumber}}
     </div><br><br>
 </div>
           <table id="mytable" onload="highlight(0)">
             <thead>
                 <tr>
-                    <th style="width: 500px;">Date</th>
-                    <th>PM10</th>
-                    <th>NO2</th>
-                    <th>CO</th>
-                    <th>CO2</th>
-                    <th>TVOC</th>
+                    <th style="width: 500px;">Serial Number</th>
+                    <th>City</th>
+                    <th>Address</th>
                 </tr>
             </thead>
-
-            
             <tbody>
-               {{#each measures}}
+               {{#each devices}}
                 <tr onclick="highlight(this);">
-                    <td style="text-align: left;">{{prettifyDate this.timestamp}}</td>
-                    <td>{{this.PM10}}</td>
-                    <td>{{this.NO2}}</td>
-                    <td>{{this.CO}}</td>
-                    <td>{{this.CO2}}</td>
-                    <td>{{this.TVOC}}</td>
+                    <td style="text-align: left;"><a href="{{base}}/readings/getallvalue?serialnumber={{this.sensornumber}}">{{this.sensornumber}}</a></td>
+                    <td>{{this.city}}</td>
+                    <td>{{this.address}}</td>
+                    
                 </tr>
               {{/each}}  
             </tbody>
         </table>
     <br>
-    <a style="margin-top: 30px;" href="{{base}}/readings/getallsensors" class="button"><</a>
-  
+
      <div class="info-wrapper" style="margin-left:35px;margin-bottom:10px;margin-top: 80px;">
           <label>Powered by</label>
           <img style="max-width: 15%;!important;" src="../img/logo_vallone.png">
