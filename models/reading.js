@@ -18,8 +18,8 @@ const sensorDataSchema = new mongoose.Schema({
         required: true
     },
     timestamp: { 
-        type: Date, 
-        default: Date.now
+        type: String,
+        required: true
     },
     PM10: {
         type: Number,
@@ -29,7 +29,7 @@ const sensorDataSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    NO2: {
+    TEMP: {
         type: Number,
         required: false
     },
@@ -37,7 +37,7 @@ const sensorDataSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    CO: {
+    PRESS: {
         type: Number,
         required: false
     },

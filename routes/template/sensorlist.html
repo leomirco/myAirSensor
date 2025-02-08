@@ -66,6 +66,7 @@
             <thead>
                 <tr>
                     <th style="width: 500px;">Serial Number</th>
+                    <th style="width: 500px;">Model</th>
                     <th>City</th>
                     <th>Address</th>
                 </tr>
@@ -74,6 +75,7 @@
                {{#each devices}}
                 <tr onclick="highlight(this);">
                     <td style="text-align: left;"><a href="{{base}}/readings/getallvalue?serialnumber={{this.sensornumber}}">{{this.sensornumber}}</a></td>
+                    <td>{{this.model}}</td>
                     <td>{{this.city}}</td>
                     <td>{{this.address}}</td>
                     

@@ -80,11 +80,21 @@ router.post("/insertvalue", async (req, res) => {
   var timestamp = req.body.timestamp;
   var PM10 = req.body.PM10;
   var PM25 = req.body.PM25;
-  var NO2 = req.body.NO2;
-  var CO = req.body.CO;
+  var TEMP = req.body.TEMP;
+  var PRESS = req.body.PRESS;
   var CO2 = req.body.CO2;
   var TVOC = req.body.TVOC;
   // insert new reading
+  //insert data
+  const today = new Date();
+  // Ottieni l'anno, il mese e il giorno
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1; // I mesi iniziano da 0
+  const day = today.getDate();
+  const hours = today.getHours().toString().padStart(2, '0');
+  const minutes = today.getMinutes().toString().padStart(2, '0');
+  console.log("/insertValue newdata:",`${year}-${month}-${day} ${hours}:${minutes}`);
+  var timestamp = `${year}-${month}-${day} ${hours}:${minutes}`;
   const newSensorData = new SensorData({
     serialNumber: serialNumber,
     model: model,
@@ -93,8 +103,8 @@ router.post("/insertvalue", async (req, res) => {
     timestamp: timestamp,
     PM10: PM10,
     PM25: PM25,
-    NO2: NO2,
-    CO: CO,
+    TEMP: TEMP,
+    PRESS: PRESS,
     CO2: CO2,
     TVOC: TVOC,
   });
@@ -127,9 +137,10 @@ router.get("/getallsensors", async (req, res) => {
       let devices = [];
       uniqueSerialNumbers.forEach(uniqueSerialNumbers => {
         console.log("Serial Number:", uniqueSerialNumbers._id);
+        console.log("Model:", uniqueSerialNumbers.documents[0].model);
         console.log("City:", uniqueSerialNumbers.documents[0].city);
         console.log("Address:", uniqueSerialNumbers.documents[0].address);
-        let device = {sensornumber:uniqueSerialNumbers._id, city: uniqueSerialNumbers.documents[0].city, address: uniqueSerialNumbers.documents[0].address};
+        let device = {sensornumber:uniqueSerialNumbers._id, model:uniqueSerialNumbers.documents[0].model, city: uniqueSerialNumbers.documents[0].city, address: uniqueSerialNumbers.documents[0].address};
         devices.push(device);
       //   uniqueSerialNumbers.documents.forEach(document => {
       //     console.log("City:", document.city);
