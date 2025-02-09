@@ -38,9 +38,12 @@
     </main>
     <div class="carousel">
         <button class="prev" onclick="cambiaSlide(-1)">❮</button>
-        <img class="slide" src="./universo1jpg.jpg" alt="Immagine 1">
-        <img class="slide" src="./universe2.jpg" alt="Immagine 2">
-        <img class="slide" src="./universe3.jpg" alt="Immagine 3">
+        <img class="slide" src="../img/sensore2.jpeg" alt="sensor 2">
+        <img class="slide" src="../img/sensore3.jpeg" alt="sensor 3">
+        <img class="slide" src="../img/sensore4.jpeg" alt="sensor 4">
+        <img class="slide" src="../img/sensore5.jpeg" alt="sensor 5">
+        <img class="slide" src="../img/sensore6.jpeg" alt="sensor 6">
+        <img class="slide" src="../img/sensore7.jpeg" alt="sensor 7">
         <button class="next" onclick="cambiaSlide(1)">❯</button>
     </div>
     <script>
@@ -66,21 +69,20 @@
                 <div class="video-section">
                     <h2>Our project</h2>
                     <div class="video-container">
-                        <video controls>
-                            <source src="./Cavallo.mp4" type="video/mp4">
-                            Il tuo browser non supporta il formato video.
-                        </video>
-                    </div>
+                        <iframe width="760" height="515" src="https://www.youtube.com/embed/_SwPa-wVaao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </div>
                 </div>
                 <div class="black-section">
                     <div class="left-image">
-                        <img src="./Posizione.png" alt="Immagine descrittiva">
+                        <img style="width: 200px;" src="../img/esp32.webp" alt="AirSensor">
                     </div>
                     <div class="right-text">
                         <h2>MENU</h2>
                          <a href="/client/asset/site/parameters.html"> <p>Primary air pollutants</p></a>
-                        <p><a href="http://ia.didavallone.ovh:3000/readings/getallsensors">Measurements</a></p>
-                        <a href="https://t.me/ValloneBot"><p>Telegram BOT</p></a>
+                        <a href="http://ia.didavallone.ovh:3000/readings/getallsensors"><p>Pollutant measurements</p></a>
+                        <a href="https://t.me/ValloneBot" target="_blank"><p>Telegram BOT</p></a>
+                        <a href="https://github.com/leomirco/myAirSensor" target="_blank"><p>Repository Github</p></a>
+                        <a href="https://github.com/leomirco/myAirSensor/wiki" target="_blank"><p>Wiky</p></a>
                     </div>
                 </div>            
 </body>
