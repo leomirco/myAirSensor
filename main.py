@@ -2,14 +2,14 @@ import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-# URL per ottenere i dati della centralina
-URL = "http://ia.didavallone.ovh:3000/readings/getlastvalue?serialnumber=SN12354"
+# URL del server per recuperare i dati della centralina
+URL = "http://ia.didavallone.ovh:3000/readings/getlastvalue?serialnumber=SN4321"
 
 # Funzione per recuperare i dati dal server
 def get_data():
     try:
         response = requests.get(URL)
-        response.raise_for_status()  # Solleva un'eccezione per errori HTTP
+        response.raise_for_status()  # Solleva un'eccezione se lo status non è 200
         data = response.json()       # Converte la risposta in JSON
         
         # Se il JSON è una lista, prendiamo il primo elemento
@@ -20,96 +20,72 @@ def get_data():
     except requests.exceptions.RequestException as e:
         return {"error": f"Errore nel recupero dei dati: {e}"}
 
-# Comando /start
+# Comando /start: mostra tutti i comandi disponibili
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(
+    message = (
         "Ciao! Usa i seguenti comandi per ottenere i dati della centralina:\n"
         "/temperatura - Temperatura (°C)\n"
         "/pressione - Pressione (hPa)\n"
-        "/pm10 - Livello di PM10 (µg/m³)\n"
-        "/pm25 - Livello di PM2.5 (µg/m³)\n"
-        "/co2 - Livello di CO2 (ppm)\n"
-        "/tvoc - Livello di TVOC (ppb)\n"
-        "/luogo - Posizione della centralina\n"
-        "/timestamp - Ultima misurazione registrata"
+        "/pm10 - Valore di PM10 (µg/m³)\n"
+        "/pm25 - Valore di PM2.5 (µg/m³)\n"
+        "/co2 - Valore di CO2 (ppm)\n"
+        "/tvoc - Valore di TVOC (ppb)\n"
+        "/luogo - Mostra città e indirizzo\n"
+        "/timestamp - Ultimo aggiornamento dei dati"
     )
+    await update.message.reply_text(message)
 
-# Comando per la temperatura
+# Funzione generica per inviare un valore specifico
+async def send_value(update: Update, field: str, label: str, unit: str) -> None:
+    data = get_data()
+    if "error" in data:
+        await update.message.reply_text(data["error"])
+        return
+    value = data.get(field, "Dati non disponibili")
+    await update.message.reply_text(f"{label}: {value} {unit}")
+
+# Comando /temperatura (usa il campo "TEMP")
 async def temperatura(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        temperatura = data.get("temp", "Dati non disponibili")
-        await update.message.reply_text(f"Temperatura: {temperatura} °C")
+    await send_value(update, "TEMP", "Temperatura", "°C")
 
-# Comando per la pressione
+# Comando /pressione (usa il campo "PRESS")
 async def pressione(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        pressione = data.get("press", "Dati non disponibili")
-        await update.message.reply_text(f"Pressione: {pressione} hPa")
+    await send_value(update, "PRESS", "Pressione", "hPa")
 
-# Comando per PM10
+# Comando /pm10
 async def pm10(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        pm10 = data.get("PM10", "Dati non disponibili")
-        await update.message.reply_text(f"Il valore di PM10 è: {pm10} µg/m³")
+    await send_value(update, "PM10", "PM10", "µg/m³")
 
-# Comando per PM2.5
+# Comando /pm25
 async def pm25(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        pm25 = data.get("PM25", "Dati non disponibili")
-        await update.message.reply_text(f"Il valore di PM2.5 è: {pm25} µg/m³")
+    await send_value(update, "PM25", "PM2.5", "µg/m³")
 
-# Comando per CO2
+# Comando /co2
 async def co2(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        co2 = data.get("CO2", "Dati non disponibili")
-        await update.message.reply_text(f"Il valore di CO2 è: {co2} ppm")
+    await send_value(update, "CO2", "CO2", "ppm")
 
-# Comando per TVOC
+# Comando /tvoc
 async def tvoc(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        tvoc = data.get("TVOC", "Dati non disponibili")
-        await update.message.reply_text(f"Il valore di TVOC è: {tvoc} ppb")
+    await send_value(update, "TVOC", "TVOC", "ppb")
 
-# Comando per ottenere il luogo (città e indirizzo)
+# Comando /luogo (città e indirizzo)
 async def luogo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     data = get_data()
     if "error" in data:
         await update.message.reply_text(data["error"])
     else:
-        citta = data.get("city", "Dati non disponibili")
-        indirizzo = data.get("address", "Dati non disponibili")
-        await update.message.reply_text(f"Luogo: {citta}, {indirizzo}")
+        city = data.get("city", "Dati non disponibili")
+        address = data.get("address", "Dati non disponibili")
+        await update.message.reply_text(f"Luogo: {city}, {address}")
 
-# Comando per ottenere il timestamp
+# Comando /timestamp
 async def timestamp(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    data = get_data()
-    if "error" in data:
-        await update.message.reply_text(data["error"])
-    else:
-        timestamp = data.get("timestamp", "Timestamp non disponibile")
-        await update.message.reply_text(f"Il timestamp dei dati è: {timestamp}")
+    await send_value(update, "timestamp", "Timestamp", "")
 
 # Funzione principale
 def main() -> None:
-    application = Application.builder().token("8038294522:AAEBGWL6lQdMImDfSfhT2RudP5EDtU-CzjQ").build()
+    TOKEN = "8038294522:AAEBGWL6lQdMImDfSfhT2RudP5EDtU-CzjQ"  # Il token del bot
+    application = Application.builder().token(TOKEN).build()
 
     # Aggiunta dei gestori per i comandi
     application.add_handler(CommandHandler("start", start))
