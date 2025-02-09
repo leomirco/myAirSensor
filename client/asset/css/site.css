@@ -33,7 +33,7 @@ body {
 
 /* Logo della scuola */
 .school-logo {
-    width: 68px; /* Regola la dimensione del logo */
+    width: 250px; /* Regola la dimensione del logo */
     height: auto;
     margin-left: 30px;  /* Sposta il logo più a destra */
     margin-right: 20px; /* Distanza tra il logo e il titolo */
