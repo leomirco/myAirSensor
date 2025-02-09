@@ -1,0 +1,349 @@
+/* Stili generali */
+body {
+    font-family: 'Adelle Sans Devanagari', serif; /* Font Didot */
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Sfondo bianco */
+}
+
+header {
+    background-color: #69b0f8;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 40px; /* Regola questo valore per adattarlo all'altezza dell'intestazione */
+}
+
+/* Immagine del menù */
+.menu-icon {
+    width: 40px; /* Imposta la dimensione dell'immagine */
+    height: auto;
+    cursor: pointer; /* Indica che è cliccabile */
+}
+
+/* Logo della scuola */
+.school-logo {
+    width: 68px; /* Regola la dimensione del logo */
+    height: auto;
+    margin-left: 30px;  /* Sposta il logo più a destra */
+    margin-right: 20px; /* Distanza tra il logo e il titolo */
+}
+
+/* Centratura del titolo */
+header h1 {
+    flex-grow: 1;  /* Occupa tutto lo spazio disponibile */
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+}
+
+/* Icone */
+.icons {
+    margin-right: 80px; /* Distanza tra il logo e il titolo */
+    display: flex;
+    gap: 20px; /* Distanza tra le icone */
+}
+
+.icon {
+    width: 25px; /* Imposta la dimensione dell'icona */
+    height: auto;
+    cursor: pointer; /* Indica che è cliccabile */
+}
+
+/* Spazio per evitare sovrapposizione */
+main {
+    margin-top: 40px;
+    padding: 20px;
+}
+
+/* Scritta Centrale */
+.welcome-text {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 50px;
+    color: #333; /* Testo scuro per visibilità */
+}
+
+/* Slider Container */
+.slider-container {
+    position: relative;
+    max-width: 600px; /* Larghezza massima */
+    margin: 40px auto; /* Centro orizzontalmente */
+    overflow: hidden;
+}
+
+/* Immagini nello slider */
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    width: 100%;
+    display: none;
+}
+
+/* Mostra solo la prima immagine di default */
+.slide:first-child {
+    display: block;
+}
+
+/* Pulsanti per scorrere */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: black;
+}
+.carousel {
+    position: relative;
+    max-width: 500px; /* Larghezza massima */
+    margin: auto;
+    text-align: center;
+}
+
+.slide {
+    display: none;  /* Nasconde tutte le immagini */
+    width: 100%;  /* Imposta la larghezza al 100% del contenitore */
+    height: 300px;  /* Imposta un'altezza fissa */
+    object-fit: cover;  /* Ritaglia l'immagine senza distorcerla */
+}
+
+/* Mostra solo la prima immagine all'inizio */
+.slide:first-child {
+    display: block;
+}
+
+/* Stile per i bottoni delle frecce */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.prev { left: 10px; }  /* Freccia sinistra */
+.next { right: 10px; } /* Freccia destra */
+.purpose-section {
+    color: white;
+    background-color: #0682ff; /* Blu scuro */
+    text-align: center;
+    padding: 50px 20px; /* Spaziatura interna */
+    margin-top: 100px; /* Distanza dalle immagini sopra */
+}
+
+.purpose-section h2 {
+    font-size: 100px; /* Scritta grande */
+    margin-bottom: 10px; /* Distanza dalla scritta sotto */
+}
+
+.purpose-text {
+    font-size: 24px; /* Scritta più piccola */
+    max-width: 650px; /* Larghezza massima del testo */
+    margin: auto; /* Lo centra orizzontalmente */
+}
+
+/* Sezione bianca con video */
+.prev { left: 10px; }  /* Freccia sinistra */
+.next { right: 10px; } /* Freccia destra */
+.video-section {
+    background-color: #fff; /* Colore di sfondo bianco */
+    padding: 50px 20px; /* Aggiunto padding per espandere il contenuto */
+    text-align: center;
+    padding: 50px 20px; /* Spaziatura interna */
+    margin-top: 100px; /* Distanza dalle immagini sopra */
+}
+
+/* Scritta grande nella sezione del video */
+.video-section h2 {
+    font-size: 36px; /* Scritta grande */
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Video centrato */
+.video-container {
+    display: flex;
+    justify-content: center;
+}
+
+video {
+    max-width: 80%; /* Imposta la larghezza massima del video */
+    height: auto;
+    border: 2px solid #ccc; /* Bordo per il video */
+}
+
+/* Sezione nera */
+.black-section {
+    background-color: #000; /* Colore di sfondo nero */
+    display: flex; /* Usa il layout flexbox */
+    justify-content: space-between; /* Distanza tra immagine e testo */
+    align-items: center; /* Centra verticalmente gli elementi */
+    padding: 40px;
+    color: #fff; /* Colore del testo bianco per contrasto */
+}
+
+/* Immagine a sinistra */
+.left-image img {
+    max-width: 100%; /* La larghezza massima dell'immagine sarà del 100% */
+    height: auto; /* Mantiene le proporzioni dell'immagine */
+    border-radius: 8px; /* Bordo arrotondato per l'immagine */
+    max-height: 300px; /* Imposta una dimensione massima per l'immagine */
+}
+
+/* Testo a destra */
+.right-text {
+    display: flex;
+    flex-direction: column; /* Imposta il testo su una colonna */
+    justify-content: center; /* Allinea il testo verticalmente al centro */
+    margin-left: 0; /* Rimosso il margine per spostare il testo ancora più a sinistra */
+}
+
+.right-text h2 {
+    font-size: 28px; /* Dimensione del titolo */
+    margin-bottom: 20px; /* Distanza tra il titolo e il testo */
+}
+
+.right-text p {
+    font-size: 18px; /* Dimensione delle scritte */
+    margin-bottom: 10px; /* Distanza tra le scritte */
+}
+
+/* Stile per l'intestazione (rimane fissa in alto) */
+.sticky-header {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ddd;
+    z-index: 1000;
+}
+
+.logo {
+    height: 50px;
+}
+
+.menu-icon {
+    height: 40px;
+}
+
+/* Titolo della pagina */
+.page-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+/* Sezione immagine principale */
+.image-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* Sezione immagine principale */
+.image-section img {
+    max-width: 40%; /* Immagine più piccola */
+    height: auto;
+    border-radius: 10px; /* Bordo arrotondato per l'immagine */
+    margin: 20px auto; /* Centra l'immagine */
+}
+
+/* SEZIONI ALTERNATE */
+
+/* Sezione azzurra */
+.blue-section {
+    background-color: #87CEEB; /* Azzurro */
+    display: flex;
+    align-items: center;
+    padding: 50px 10%;
+    color: #000;
+}
+
+/* Sezione bianca */
+.white-section {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 50px 10%;
+    color: #000;
+}
+
+/* Stile per immagine e testo */
+
+
+/* Sezione con immagine dei parametri */
+.left-image {
+    flex: 0 0 auto;  /* Impedisce che l'immagine si espanda o si riduca in larghezza */
+    margin-right: 50px;  /* Riduce la distanza tra l'immagine e il testo */
+}
+
+
+/* Sezione con immagine dei parametri */
+.left-image img {
+    max-width: 150%;  /* Immagine più grande, occuperà fino all'80% della larghezza */
+    height: auto;    /* Mantieni le proporzioni */
+    max-height: 500px;  /* Aumenta l'altezza massima */
+    border-radius: 10px; /* Aggiungi angoli arrotondati per un aspetto più elegante */
+}
+
+
+.right-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px; /* Sposta il testo verso sinistra */
+}
+
+.right-text h2 {
+    font-size: 24px; /* Dimensione del titolo */
+    margin-bottom: 10px; /* Distanza tra il titolo e il testo */
+}
+
+.right-text p {
+    font-size: 18px; /* Dimensione del testo */
+}
+
+/* Link */
+a {
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: inherit; /* Mantiene il colore del testo originale */
+}

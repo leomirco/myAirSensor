@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRSENSOR PROJECT</title>
+    <link rel="stylesheet" href="/client/asset/css/site.css"> <!-- Collega il file CSS -->
+    <!-- Collegamento al font Didot -->
+    <link href="https://fonts.googleapis.com/css2?family=Didot&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Intestazione Fissa -->
+    <header>
+        <!-- Immagine Menu -->
+
+        <a href="tendina.html">
+            <img src="./hamburger.png" alt="Menu" class="menu-icon">
+        </a>
+        
+        <!-- Logo della scuola -->
+        <img src="./Logoscuola.png" alt="Logo Scuola" class="school-logo">
+
+        <!-- Scritta "AirSensor Project" -->
+        <h1>AIRSENSOR PROJECT</h1>
+
+        <!-- Icone (modifica il percorso delle immagini se necessario) -->
+        <div class="icons">
+            <img src="./italy.png" alt="Icona1" class="icon">
+            <img src="./England.png" alt="Icona2" class="icon">
+        </div>
+    </header>
+
+    <!-- Contenuto della pagina -->
+    <main>
+
+        <!-- Titolo Centrale -->
+        <h2 class="welcome-text">WELCOME TO AIRSENSOR PROJECT</h2>
+    
+
+    </main>
+    
+    <div class="carousel">
+        <button class="prev" onclick="cambiaSlide(-1)">❮</button>
+        <img class="slide" src="./universo1jpg.jpg" alt="Immagine 1">
+        <img class="slide" src="./universe2.jpg" alt="Immagine 2">
+        <img class="slide" src="./universe3.jpg" alt="Immagine 3">
+        <button class="next" onclick="cambiaSlide(1)">❯</button>
+    </div>
+    
+    <script>
+        let indiceSlide = 0; // Inizia dalla prima immagine
+        mostraSlide(indiceSlide);
+    
+        function cambiaSlide(n) {
+            mostraSlide(indiceSlide += n);
+        }
+    
+        function mostraSlide(n) {
+            let slides = document.getElementsByClassName("slide");
+            
+            if (n >= slides.length) { indiceSlide = 0; } // Se supera il numero di immagini, torna alla prima
+            if (n < 0) { indiceSlide = slides.length - 1; } // Se va indietro oltre la prima, torna all'ultima
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"; // Nasconde tutte le immagini
+            }
+            
+            slides[indiceSlide].style.display = "block"; // Mostra l'immagine corrente
+        }
+
+    </script>
+            <div class="purpose-section">
+                <h2>AirSensor</h2>
+                <p class="purpose-text"><b>The project aims to develop a network of plug-and-play iot sensors for real-time air quality monitoring, detecting pollutants such as particulate matter (pm10, pm2.5) and harmful gases (no2, co, co2, voc) to provide accurate and timely data on ambient air quality.</b></p>
+                <div class="video-section">
+                    <h2>Our project</h2>
+                    <div class="video-container">
+                        <video controls>
+                            <source src="./Cavallo.mp4" type="video/mp4">
+                            Il tuo browser non supporta il formato video.
+                        </video>
+                    </div>
+                </div>
+                <div class="black-section">
+                    <div class="left-image">
+                        <img src="./Posizione.png" alt="Immagine descrittiva">
+                    </div>
+                    <div class="right-text">
+                        <h2>MENU</h2>
+                         <a href="/client/asset/site/parameters.html"> <p>Primary air pollutants</p></a>
+                        <p><a href="http://ia.didavallone.ovh:3000/readings/getallsensors">MEASURAMENTS</a></p>
+                        <a href="https://t.me/ValloneBot"><p>Telegram BOT</p></a>
+                    </div>
+                </div>
+                
+                
+
+                
+</body>
+</html>
