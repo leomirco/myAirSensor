@@ -218,7 +218,7 @@ video {
 
 /* Immagine a sinistra */
 .left-image img {
-    max-width: 100%; /* La larghezza massima dell'immagine sarà del 100% */
+    max-width: 60%; /* La larghezza massima dell'immagine sarà del 100% */
     height: auto; /* Mantiene le proporzioni dell'immagine */
     border-radius: 8px; /* Bordo arrotondato per l'immagine */
     max-height: 300px; /* Imposta una dimensione massima per l'immagine */
